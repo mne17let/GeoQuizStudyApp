@@ -1,6 +1,19 @@
 <resources>
     <string name="app_name">Geo Quiz</string>
-    <string name="string_true_button">TRUE</string>
-    <string name="string_false_button">FALSE</string>
-    <string name="string_question_text">Geo Quiz</string>
+    <string name="string_true_button">Правда</string>
+    <string name="string_false_button">Ложь</string>
+    <string name="string_next_button">Следующий вопрос</string>
+
+    <string name="string_correct_answer">Верно</string>
+    <string name="string_false_answer">Ошибка</string>
+
+    <string name="string_question1_text">Столица России - город Москва</string>
+    <string name="string_question2_text">Столица Урала - город Екатеринбург</string>
+    <string name="string_question3_text">Россия - самая большая страна в мире</string>
+    <string name="string_question4_text">Столица России - город Шадринск</string>
+    <string name="string_question5_text">Столица Урала - город Пермь</string>
+    <string name="string_question6_text">Россия - самая маленькая страна в мире</string>
+    <string name="string_question7_text">Камчатка - остров</string>
+    <string name="string_question8_text">В Росиии один часовой пояс</string>
+    <string name="string_question9_text">Байкал - самое глубокое озеро в мире</string>
 </resources>

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center">
 
     <TextView
+        android:id="@+id/id_textview_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/string_question_text"
+        tools:text="@string/string_question1_text"
         android:textSize="25sp"
+        android:gravity="center"
         android:layout_margin="10dp"/>
 
     <LinearLayout
@@ -31,7 +34,12 @@
             android:text="@string/string_false_button"
             android:layout_margin="2dp"/>
 
-
     </LinearLayout>
+
+    <Button
+        android:id="@+id/id_next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_next_button" />
 
 </LinearLayout>
