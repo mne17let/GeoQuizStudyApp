@@ -2,20 +2,23 @@ package com.example.geoquiz
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import com.example.geoquiz.ModelClasses.Question
 
-class MainActivity : AppCompatActivity() {
+private const val tagFromActivity = "MainActivity_Vladimir"
 
-    var mainActivity = this
+class MainActivity : AppCompatActivity() {
 
     private lateinit var trueButtonVar: Button
     private lateinit var falseButtonVar: Button
-    private lateinit var nextButtonVar: Button
+    private lateinit var nextButtonVar: ImageButton
+    private lateinit var previewButtonVar: ImageButton
     private lateinit var textViewQuestionVar: TextView
 
     private val questionBank = mutableListOf<Question>()
@@ -28,21 +31,51 @@ class MainActivity : AppCompatActivity() {
         init()
         createQuestions()
         fillTextView()
+
+        Log.d(tagFromActivity, "OnCreate")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(tagFromActivity, "OnStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(tagFromActivity, "OnResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(tagFromActivity, "OnPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(tagFromActivity, "OnStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(tagFromActivity, "OnDestroy")
     }
 
     fun init(){
         trueButtonVar = findViewById(R.id.id_true_button)
         falseButtonVar = findViewById(R.id.id_false_button)
         nextButtonVar = findViewById(R.id.id_next_button)
+        previewButtonVar = findViewById(R.id.id_preview_button)
         textViewQuestionVar = findViewById(R.id.id_textview_question)
 
         val instanceTrueListener = trueButtonListener()
         val instanceFalseListener = falseButtonListener()
         val instanceNextListener = nextButtonListener()
+        val instancePreviewListener = previewButtonListener()
 
         trueButtonVar.setOnClickListener(instanceTrueListener)
         falseButtonVar.setOnClickListener(instanceFalseListener)
         nextButtonVar.setOnClickListener(instanceNextListener)
+        previewButtonVar.setOnClickListener(instancePreviewListener)
     }
 
     fun createQuestions(){
@@ -98,6 +131,18 @@ class MainActivity : AppCompatActivity() {
     inner class nextButtonListener: View.OnClickListener{
         override fun onClick(v: View?) {
             currentIndex = (currentIndex + 1) % questionBank.size
+            fillTextView()
+        }
+
+    }
+
+    inner class previewButtonListener: View.OnClickListener{
+        override fun onClick(v: View?) {
+            if ((currentIndex - 1) < 0){
+                currentIndex = 8
+            } else {
+                currentIndex = (currentIndex - 1) % questionBank.size
+            }
             fillTextView()
         }
 

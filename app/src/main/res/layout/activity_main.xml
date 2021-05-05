@@ -37,9 +37,40 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/id_next_button"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/string_next_button" />
+        android:text="@string/string_next_button"
+        android:drawableEnd="@drawable/image_next_arrow"
+        android:drawablePadding="2dp"/>
+
+
+    <Button
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_preview_button"
+        android:drawableLeft="@drawable/image_preview_arrow"
+        android:drawablePadding="2dp"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/id_preview_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_preview_arrow"/>
+
+        <ImageButton
+            android:id="@+id/id_next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/image_next_arrow"/>
+
+    </LinearLayout>
+
 
 </LinearLayout>

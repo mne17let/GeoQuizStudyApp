@@ -3,6 +3,7 @@
     <string name="string_true_button">Правда</string>
     <string name="string_false_button">Ложь</string>
     <string name="string_next_button">Следующий вопрос</string>
+    <string name="string_preview_button">Предыдущий вопрос</string>
 
     <string name="string_correct_answer">Верно</string>
     <string name="string_false_answer">Ошибка</string>
