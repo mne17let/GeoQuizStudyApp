@@ -17,8 +17,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var trueButtonVar: Button
     private lateinit var falseButtonVar: Button
-    private lateinit var nextButtonVar: ImageButton
-    private lateinit var previewButtonVar: ImageButton
+    private lateinit var nextButtonVar: Button
+    private lateinit var previewButtonVar: Button
     private lateinit var textViewQuestionVar: TextView
 
     private val questionBank = mutableListOf<Question>()
@@ -114,6 +114,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         Toast.makeText(this, resultMessageText, Toast.LENGTH_SHORT).show()
+
+        trueButtonVar.isEnabled = false
+        falseButtonVar.isEnabled = false
     }
 
     inner class trueButtonListener: View.OnClickListener{
@@ -132,8 +135,10 @@ class MainActivity : AppCompatActivity() {
         override fun onClick(v: View?) {
             currentIndex = (currentIndex + 1) % questionBank.size
             fillTextView()
-        }
 
+            trueButtonVar.isEnabled = true
+            falseButtonVar.isEnabled = true
+        }
     }
 
     inner class previewButtonListener: View.OnClickListener{
