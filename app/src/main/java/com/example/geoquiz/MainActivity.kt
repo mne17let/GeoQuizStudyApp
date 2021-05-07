@@ -9,7 +9,9 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.example.geoquiz.ModelClasses.Question
+import com.example.geoquiz.ViewModelClasses.QuizViewModel
 
 private const val tagFromActivity = "MainActivity_Vladimir"
 
@@ -31,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         init()
         createQuestions()
         fillTextView()
+
+        createAndBindViewModel()
 
         Log.d(tagFromActivity, "OnCreate")
     }
@@ -117,6 +121,13 @@ class MainActivity : AppCompatActivity() {
 
         trueButtonVar.isEnabled = false
         falseButtonVar.isEnabled = false
+    }
+
+    fun createAndBindViewModel(){
+        val vmProvider: ViewModelProvider = ViewModelProvider(this)
+        val quizViewModel: QuizViewModel = vmProvider.get(QuizViewModel::class.java)
+
+        Log.d(tagFromActivity, "ViewModel created and bind to Activity. ViewModel - $quizViewModel")
     }
 
     inner class trueButtonListener: View.OnClickListener{
