@@ -23,18 +23,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var previewButtonVar: Button
     private lateinit var textViewQuestionVar: TextView
 
-    private val questionBank = mutableListOf<Question>()
-    private var currentIndex = 0
+    private lateinit var quizViewModel: QuizViewModel
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         init()
-        createQuestions()
-        fillTextView()
-
         createAndBindViewModel()
+        quizViewModel.createQuestions()
+        fillTextView()
 
         Log.d(tagFromActivity, "OnCreate")
     }
@@ -82,35 +83,15 @@ class MainActivity : AppCompatActivity() {
         previewButtonVar.setOnClickListener(instancePreviewListener)
     }
 
-    fun createQuestions(){
-        val question1 = Question(R.string.string_question1_text, true)
-        val question2 = Question(R.string.string_question2_text, true)
-        val question3 = Question(R.string.string_question3_text, true)
-        val question4 = Question(R.string.string_question4_text, false)
-        val question5 = Question(R.string.string_question5_text, false)
-        val question6 = Question(R.string.string_question6_text, false)
-        val question7 = Question(R.string.string_question7_text, false)
-        val question8 = Question(R.string.string_question8_text, false)
-        val question9 = Question(R.string.string_question9_text, true)
 
-        questionBank.add(question1)
-        questionBank.add(question2)
-        questionBank.add(question3)
-        questionBank.add(question4)
-        questionBank.add(question5)
-        questionBank.add(question6)
-        questionBank.add(question7)
-        questionBank.add(question8)
-        questionBank.add(question9)
-    }
 
     fun fillTextView(){
-        val currentQuestionTextId = questionBank[currentIndex].textId
+        val currentQuestionTextId = quizViewModel.currentQuestionTextId
         textViewQuestionVar.setText(currentQuestionTextId)
     }
 
     fun checkAnswer(userAnswer: Boolean){
-        val currentRightAnswer = questionBank[currentIndex].rightAnswer
+        val currentRightAnswer = quizViewModel.currentRightAnswer
         val resultMessageText = if (currentRightAnswer == userAnswer){
             R.string.string_correct_answer
         } else {
@@ -118,16 +99,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         Toast.makeText(this, resultMessageText, Toast.LENGTH_SHORT).show()
-
-        trueButtonVar.isEnabled = false
-        falseButtonVar.isEnabled = false
     }
 
     fun createAndBindViewModel(){
         val vmProvider: ViewModelProvider = ViewModelProvider(this)
-        val quizViewModel: QuizViewModel = vmProvider.get(QuizViewModel::class.java)
+        quizViewModel = vmProvider.get(QuizViewModel::class.java)
 
-        Log.d(tagFromActivity, "ViewModel created and bind to Activity. ViewModel - $quizViewModel")
+        Log.d(tagFromActivity, "ViewModel got and bind to Activity. ViewModel - $quizViewModel")
     }
 
     inner class trueButtonListener: View.OnClickListener{
@@ -144,21 +122,16 @@ class MainActivity : AppCompatActivity() {
 
     inner class nextButtonListener: View.OnClickListener{
         override fun onClick(v: View?) {
-            currentIndex = (currentIndex + 1) % questionBank.size
+            quizViewModel.moveToNextQuestion()
             fillTextView()
 
-            trueButtonVar.isEnabled = true
-            falseButtonVar.isEnabled = true
+
         }
     }
 
     inner class previewButtonListener: View.OnClickListener{
         override fun onClick(v: View?) {
-            if ((currentIndex - 1) < 0){
-                currentIndex = 8
-            } else {
-                currentIndex = (currentIndex - 1) % questionBank.size
-            }
+            quizViewModel.moveToPreviewQuestion()
             fillTextView()
         }
 
