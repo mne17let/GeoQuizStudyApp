@@ -14,6 +14,7 @@ import com.example.geoquiz.ModelClasses.Question
 import com.example.geoquiz.ViewModelClasses.QuizViewModel
 
 private const val tagFromActivity = "MainActivity_Vladimir"
+private const val tagForCurrentIndexInBundle = "MainActivity_CurrentQuestionIndex_ForBundle"
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,10 +35,19 @@ class MainActivity : AppCompatActivity() {
 
         init()
         createAndBindViewModel()
+
+        val currentIndexFromBundle = savedInstanceState?.getInt(tagForCurrentIndexInBundle) ?: 0
+        quizViewModel.currentIndex = currentIndexFromBundle
+
         quizViewModel.createQuestions()
         fillTextView()
 
         Log.d(tagFromActivity, "OnCreate")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(tagForCurrentIndexInBundle, quizViewModel.currentIndex)
     }
 
     override fun onStart() {

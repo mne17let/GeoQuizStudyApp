@@ -9,7 +9,7 @@ private const val tagFromViewModel = "ViewModel_Vladimir"
 
 class QuizViewModel: ViewModel() {
 
-    private var currentIndex = 0
+    var currentIndex = 0
     private val questionBank = mutableListOf<Question>()
 
     val currentRightAnswer: Boolean
