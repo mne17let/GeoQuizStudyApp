@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var falseButtonVar: Button
     private lateinit var nextButtonVar: Button
     private lateinit var previewButtonVar: Button
+    private lateinit var cheatButtonVar: Button
+
     private lateinit var textViewQuestionVar: TextView
 
     private lateinit var quizViewModel: QuizViewModel
@@ -81,6 +83,7 @@ class MainActivity : AppCompatActivity() {
         nextButtonVar = findViewById(R.id.id_next_button)
         previewButtonVar = findViewById(R.id.id_preview_button)
         textViewQuestionVar = findViewById(R.id.id_textview_question)
+        cheatButtonVar = findViewById(R.id.id_cheat_button)
 
         val instanceTrueListener = trueButtonListener()
         val instanceFalseListener = falseButtonListener()
@@ -91,6 +94,14 @@ class MainActivity : AppCompatActivity() {
         falseButtonVar.setOnClickListener(instanceFalseListener)
         nextButtonVar.setOnClickListener(instanceNextListener)
         previewButtonVar.setOnClickListener(instancePreviewListener)
+
+        cheatButtonVar.setOnClickListener(object: View.OnClickListener{
+            override fun onClick(v: View?) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
     }
 
 

@@ -17,4 +17,12 @@
     <string name="string_question7_text">Камчатка - остров</string>
     <string name="string_question8_text">В Росиии один часовой пояс</string>
     <string name="string_question9_text">Байкал - самое глубокое озеро в мире</string>
+
+
+
+
+    <string name="warning_text">Are you sure you want to do this?</string>
+    <string name="show_answer_button">Show Answer</string>
+    <string name="cheat_button">Cheat!</string>
+    <string name="judgment_toast">Cheating is wrong.</string>
 </resources>
