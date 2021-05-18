@@ -1,5 +1,6 @@
 package com.example.geoquiz
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -95,9 +96,11 @@ class MainActivity : AppCompatActivity() {
         nextButtonVar.setOnClickListener(instanceNextListener)
         previewButtonVar.setOnClickListener(instancePreviewListener)
 
+
         cheatButtonVar.setOnClickListener(object: View.OnClickListener{
             override fun onClick(v: View?) {
-                TODO("Not yet implemented")
+                val intentForCheatActivity = Intent(this@MainActivity, CheatActivity::class.java)
+                startActivity(intentForCheatActivity)
             }
 
         })
