@@ -16,6 +16,7 @@ import com.example.geoquiz.ViewModelClasses.QuizViewModel
 
 private const val tagFromActivity = "MainActivity_Vladimir"
 private const val tagForCurrentIndexInBundle = "MainActivity_CurrentQuestionIndex_ForBundle"
+private const val stringExtraForIntentIfAnswerIsTrue = "package_name.Answer_Is_True"
 
 class MainActivity : AppCompatActivity() {
 
@@ -99,7 +100,7 @@ class MainActivity : AppCompatActivity() {
 
         cheatButtonVar.setOnClickListener(object: View.OnClickListener{
             override fun onClick(v: View?) {
-                val intentForCheatActivity = Intent(this@MainActivity, CheatActivity::class.java)
+                val intentForCheatActivity = CheatActivity.createIntentForCheatActivity(this@MainActivity, quizViewModel.currentRightAnswer)
                 startActivity(intentForCheatActivity)
             }
 
