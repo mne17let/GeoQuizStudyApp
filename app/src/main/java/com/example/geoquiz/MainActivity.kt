@@ -1,5 +1,6 @@
 package com.example.geoquiz
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,6 +18,8 @@ import com.example.geoquiz.ViewModelClasses.QuizViewModel
 private const val tagFromActivity = "MainActivity_Vladimir"
 private const val tagForCurrentIndexInBundle = "MainActivity_CurrentQuestionIndex_ForBundle"
 private const val stringExtraForIntentIfAnswerIsTrue = "package_name.Answer_Is_True"
+
+private const val codeForCheatActivityForResult = 0
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         fillTextView()
 
         Log.d(tagFromActivity, "OnCreate")
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -79,6 +83,20 @@ class MainActivity : AppCompatActivity() {
         Log.d(tagFromActivity, "OnDestroy")
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode != Activity.RESULT_OK){
+            return
+        }
+
+        if (requestCode == codeForCheatActivityForResult && data != null) {
+            quizViewModel.isCheater = data.getBooleanExtra("Посмотрел ли подсказку", false)
+        } else {
+            return
+        }
+    }
+
     fun init(){
         trueButtonVar = findViewById(R.id.id_true_button)
         falseButtonVar = findViewById(R.id.id_false_button)
@@ -101,7 +119,7 @@ class MainActivity : AppCompatActivity() {
         cheatButtonVar.setOnClickListener(object: View.OnClickListener{
             override fun onClick(v: View?) {
                 val intentForCheatActivity = CheatActivity.createIntentForCheatActivity(this@MainActivity, quizViewModel.currentRightAnswer)
-                startActivity(intentForCheatActivity)
+                startActivityForResult(intentForCheatActivity, codeForCheatActivityForResult)
             }
 
         })
@@ -117,10 +135,11 @@ class MainActivity : AppCompatActivity() {
 
     fun checkAnswer(userAnswer: Boolean){
         val currentRightAnswer = quizViewModel.currentRightAnswer
-        val resultMessageText = if (currentRightAnswer == userAnswer){
-            R.string.string_correct_answer
-        } else {
-            R.string.string_false_answer
+        val resultMessageText =
+                when {
+                    quizViewModel.isCheater == true -> R.string.judgment_toast
+                    userAnswer == currentRightAnswer -> R.string.string_correct_answer
+                    else -> R.string.string_false_answer
         }
 
         Toast.makeText(this, resultMessageText, Toast.LENGTH_SHORT).show()

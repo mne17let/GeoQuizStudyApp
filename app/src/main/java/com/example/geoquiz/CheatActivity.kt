@@ -1,5 +1,6 @@
 package com.example.geoquiz
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.opengl.Visibility
@@ -24,6 +25,7 @@ class CheatActivity : AppCompatActivity(){
         currentRightAnswerForCheat = intent.getBooleanExtra(stringExtraForIntentIfAnswerIsTrue, false)
 
         init()
+
     }
 
     fun init(){
@@ -39,6 +41,7 @@ class CheatActivity : AppCompatActivity(){
         }
 
         setClickListenerOnShowAnswerButton()
+        
     }
 
     fun setClickListenerOnShowAnswerButton(){
@@ -46,10 +49,19 @@ class CheatActivity : AppCompatActivity(){
         val listener = object: View.OnClickListener {
             override fun onClick(v: View?) {
                 textViewWithRightAnswerVar.visibility = View.VISIBLE
+
+                sendResultToParentActivity()
             }
         }
 
         showAnswerButtonVar.setOnClickListener(listener)
+
+    }
+
+    fun sendResultToParentActivity(){
+        val intentWithResult = Intent()
+        intentWithResult.putExtra("Посмотрел ли подсказку", true)
+        setResult(Activity.RESULT_OK, intentWithResult)
     }
 
 

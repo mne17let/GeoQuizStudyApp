@@ -9,7 +9,9 @@ private const val tagFromViewModel = "ViewModel_Vladimir"
 
 class QuizViewModel: ViewModel() {
 
+    var isCheater = false
     var currentIndex = 0
+
     private val questionBank = mutableListOf<Question>()
 
     val currentRightAnswer: Boolean
