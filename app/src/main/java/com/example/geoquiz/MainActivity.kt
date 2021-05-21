@@ -1,7 +1,9 @@
 package com.example.geoquiz
 
 import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -117,9 +119,23 @@ class MainActivity : AppCompatActivity() {
 
 
         cheatButtonVar.setOnClickListener(object: View.OnClickListener{
-            override fun onClick(v: View?) {
-                val intentForCheatActivity = CheatActivity.createIntentForCheatActivity(this@MainActivity, quizViewModel.currentRightAnswer)
-                startActivityForResult(intentForCheatActivity, codeForCheatActivityForResult)
+            override fun onClick(viewButton: View?) {
+                val intentForCheatActivity = CheatActivity.createIntentForCheatActivity(this@MainActivity,
+                        quizViewModel.currentRightAnswer)
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    if (viewButton != null) {
+                        val optionForAnimation = ActivityOptions.makeClipRevealAnimation(viewButton, 0,0,
+                                viewButton.width, viewButton.height)
+
+                        startActivityForResult(intentForCheatActivity, codeForCheatActivityForResult, optionForAnimation.toBundle())
+
+                    } else {
+                        startActivityForResult(intentForCheatActivity, codeForCheatActivityForResult)
+                    }
+                } else {
+                    startActivityForResult(intentForCheatActivity, codeForCheatActivityForResult)
+                }
             }
 
         })
